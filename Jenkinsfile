@@ -4,7 +4,7 @@ node('51reboot') {
         checkout scm
         script {
             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-	    branch_name = sh(returnStdout: true, script: 'git symbolic-ref --short HEAD').trim()
+	    branch_name = sh(returnStdout: true, script: 'git branch | awk  '$1 == "*"{print $2}').trim()
             if (${branch_name} != 'master') {
                 build_tag = "${branch_name}-${build_tag}"
             }
