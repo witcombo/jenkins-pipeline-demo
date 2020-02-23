@@ -5,8 +5,8 @@ node('51reboot') {
         script {
             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 	    // branch_name = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-            if (env.GIT_BRANCH != 'master') {
-                build_tag = "${env.GIT_BRANCH}-${build_tag}"
+            if (GIT_BRANCH != 'master') {
+                build_tag = "${GIT_BRANCH}-${build_tag}"
             }
         }
     }
@@ -30,7 +30,7 @@ node('51reboot') {
             input "确认要部署线上环境吗？"
         }
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
-        sh "sed -i 's/<BRANCH_NAME>/${env.GIT_BRANCH}/' k8s.yaml"
+        sh "sed -i 's/<BRANCH_NAME>/${GIT_BRANCH}/' k8s.yaml"
         sh "kubectl apply -f k8s.yaml --record"
     }
 }
