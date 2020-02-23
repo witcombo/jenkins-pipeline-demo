@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins-demo
+  name: jenkins-pipeline-demo
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: jenkins-demo
+      app: jenkins-pipeline-demo
   template:
     metadata:
       labels:
-        app: jenkins-demo
+        app: jenkins-pipeline-demo
     spec:
       containers:
-      - image: cnych/jenkins-demo:<BUILD_TAG>
+      - image: zhangchuan/jenkins-pipeline-demo:<BUILD_TAG>
         imagePullPolicy: IfNotPresent
         name: jenkins-demo
         env:

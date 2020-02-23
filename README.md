@@ -1,2 +1,2 @@
 # jenkins-demo
-some demo project for jenkins
+some pipeline demo project for jenkins
