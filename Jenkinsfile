@@ -18,8 +18,8 @@ node('51reboot') {
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-            sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
+        withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DockerHubPassword', usernameVariable: 'DockerHubUser')]) {
+            sh "docker login -u ${DockerHubUser} -p ${DockerHubPassword}"
             sh "docker push zhangchuan/jenkins-pipeline-demo:${build_tag}"
         }
     }
@@ -29,7 +29,7 @@ node('51reboot') {
             input "确认要部署线上环境吗？"
         }
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
-        sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
+        sh "sed -i 's/<BRANCH_NAME>/${BRANCH_NAME}/' k8s.yaml"
         sh "kubectl apply -f k8s.yaml --record"
     }
 }
