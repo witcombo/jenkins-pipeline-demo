@@ -3,9 +3,9 @@ node('51reboot') {
         echo "1.Prepare Stage"
         checkout scm
         script {
-	    sh "git fetch origin"
             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-            branch_name = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+            // branch_name = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+	    branch_name = 'master'
             if (branch_name != 'master') {
                 build_tag = "${branch_name}-${build_tag}"
             }
