@@ -2,10 +2,10 @@ node('51reboot') {
     stage('Prepare') {
         echo "1.Prepare Stage"
         checkout scm
-        env.BRANCH_NAME
         script {
             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
             // env.BRANCH_NAME = sh(returnStdout: true, script: 'git branch | awk  '$1 == "*"{print $2}'').trim()
+            env.BRANCH_NAME
             if (BRANCH_NAME != 'master') {
                 build_tag = "${BRANCH_NAME}-${build_tag}"
             }
